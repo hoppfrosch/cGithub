@@ -1,0 +1,5 @@
+*.bak
+tempCodeRunnerFile.ahk
+*.local.json
+Settings.json
+Working Data
