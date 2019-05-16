@@ -581,7 +581,7 @@ class github {
 	---------+------------------------------------------------------+------------------------------------
 	GET      | /repos/:owner/:repo/releases                         | obj.listReleasesForRepository
 	GET      | /repos/:owner/:repo/releases/:release_id             | _NOT_YET_IMPLEMENTED_
-	GET      | /repos/:owner/:repo/releases/latest                  | _NOT_YET_IMPLEMENTED_
+	GET      | /repos/:owner/:repo/releases/latest                  | obj.getLatestRelease
 	GET      | /repos/:owner/:repo/releases/tags/:tag               | _NOT_YET_IMPLEMENTED_
 	POST     | /repos/:owner/:repo/releases                         | _NOT_YET_IMPLEMENTED_
 	PATCH    | /repos/:owner/:repo/releases/:release_id             | _NOT_YET_IMPLEMENTED_
@@ -599,6 +599,18 @@ class github {
 			this.access := access
 			_logger.trace("<(access=(" access "")
 			return this
+		}
+
+		getLatestRelease(ownr, repo) {
+		/* 
+		Method: View the latest published full release for the repository.
+		*/
+			local _logger := new log4ahk()
+			_logger.trace(">(owner: (" ownr "), repo: (" repo "))")
+			this.access.url := "/repos/" ownr "/" repo "/releases/latest"
+			local json_str := this.access.get()
+			_logger.trace("< ret: " json_str)
+			return json_str
 		}
 
 		listReleasesForRepository(ownr, repo) {
